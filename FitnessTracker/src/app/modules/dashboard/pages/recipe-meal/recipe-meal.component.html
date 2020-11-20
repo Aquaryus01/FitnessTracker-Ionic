@@ -1,0 +1,37 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Today's meal
+    </ion-title>
+    <button (click)="removeToken()">logout</button>
+  </ion-toolbar>
+</ion-header>
+
+
+
+<ion-content [fullscreen]="true">
+  <app-meal [inputMeal]='inputMeal'></app-meal>
+  <ion-searchbar (ionChange)="changeSearchFilter( $event )"></ion-searchbar>
+
+  <ion-item *ngFor="let meal of meals | filter: searchFilter">
+    <ion-label class="ion-text-wrap" (click)="openMeal(meal)">
+      <ion-text>
+        <h3 style="color: black; font-weight: bold;">{{meal.name}}</h3>
+      </ion-text>
+      <p>Calorii: {{meal.calorie}} cal</p>
+      <br>
+      <ion-text style="color: black; display: inline;">
+        <p style="display: inline; font-weight: bold;">Ingrediente: </p>
+        <p style = "display: inline">{{meal.ingredients}}</p>
+      </ion-text>
+    </ion-label>
+    <ion-button (click)='deleteMeal(meal.id)' color="danger" expand="full">Delete</ion-button>
+  </ion-item>
+
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>    
+</ion-content>

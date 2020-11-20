@@ -6,15 +6,18 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { environment } from 'src/environments/environment';
+import { AppRoutingModule } from './app-routing.module';
+import { AuthenticationModule } from './modules/authentication/authentication.module';
+import { DashboardModule } from './modules/dashboard/dashboard.module';
+import { AuthGuard } from './commons/auth.guard';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, AuthenticationModule, DashboardModule],
   providers: [
+    AuthGuard,
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
